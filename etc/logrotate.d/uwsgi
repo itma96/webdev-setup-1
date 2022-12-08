@@ -1,0 +1,14 @@
+/var/log/uwsgi/*.log /var/log/uwsgi/vassals/*.log {
+        weekly
+        missingok
+        rotate 4
+        compress
+        delaycompress
+        notifempty
+        create 0640 dev dev
+        sharedscripts
+        postrotate
+                systemctl restart emperor.uwsgi.service >/dev/null 2>&1
+                # service uwsgi restart >/dev/null 2>&1
+        endscript
+}
